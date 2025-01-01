@@ -1,6 +1,15 @@
 import { BsCart4 } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import useAuth from "../Hooks/useAuth.jsx";
 const Navbar = () => {
+    const { user, logOut } = useAuth();
+
+    const handleLogout = () => {
+        logOut()
+            .then(() => {})
+            .catch((err) => console.log(err));
+    };
+
     const links = (
         <>
             <Link to="/" className="px-3 text-yellow-400 hover:text-white">
@@ -48,10 +57,22 @@ const Navbar = () => {
                             </span>
                         </button>
                     </div>
-                    {/* User Icon */}
-                    <Link to="/login" className="px-3 hover:text-yellow-400">
-                        Login
-                    </Link>
+
+                    {user ? (
+                        <>
+                            {" "}
+                            <button onClick={handleLogout}>Logout</button>{" "}
+                        </>
+                    ) : (
+                        <>
+                            <Link
+                                to="/login"
+                                className="px-3 hover:text-yellow-400"
+                            >
+                                Login
+                            </Link>
+                        </>
+                    )}
                 </div>
             </div>
         </nav>
