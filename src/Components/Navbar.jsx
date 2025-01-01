@@ -1,5 +1,4 @@
 import { BsCart4 } from "react-icons/bs";
-import { FaUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 const Navbar = () => {
     const links = (
@@ -50,14 +49,9 @@ const Navbar = () => {
                         </button>
                     </div>
                     {/* User Icon */}
-                    <div>
-                        <button>
-                            <FaUserCircle />
-                        </button>
-                    </div>
-                    <p className="cursor-pointer hover:text-yellow-400">
-                        Sign Out
-                    </p>
+                    <Link to="/login" className="px-3 hover:text-yellow-400">
+                        Login
+                    </Link>
                 </div>
             </div>
         </nav>

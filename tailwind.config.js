@@ -6,7 +6,11 @@ export default {
             inter: ["Inter", "sans-serif"],
             cinzel: ["Cinzel", "serif"],
         },
-        extend: {},
+        extend: {
+            backgroundImage: {
+                authBg: "url('./src/assets/others/authentication.png')",
+            },
+        },
     },
     plugins: [require("daisyui")],
 };
