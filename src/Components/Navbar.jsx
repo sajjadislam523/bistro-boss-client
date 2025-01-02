@@ -1,8 +1,10 @@
 import { BsCart4 } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import useAuth from "../Hooks/useAuth.jsx";
+import useCart from "../Hooks/useCart.jsx";
 const Navbar = () => {
     const { user, logOut } = useAuth();
+    const [cart] = useCart();
 
     const handleLogout = () => {
         logOut()
@@ -53,7 +55,7 @@ const Navbar = () => {
                         <button className="relative">
                             <BsCart4 />
                             <span className="absolute px-1 text-xs text-white bg-red-500 rounded-full -top-2 -right-2">
-                                7
+                                {cart.length}
                             </span>
                         </button>
                     </div>
