@@ -1,5 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
+import Dashboard from "../Layouts/Dashboard.jsx";
 import MainLayout from "../Layouts/MainLayout.jsx";
+import Cart from "../Pages/Dashboard/Cart.jsx";
 import Home from "../Pages/Home.jsx";
 import Login from "../Pages/Login.jsx";
 import Menu from "../Pages/Menu.jsx";
@@ -30,6 +32,16 @@ const router = createBrowserRouter([
             {
                 path: "register",
                 element: <Register />,
+            },
+        ],
+    },
+    {
+        path: "dashboard",
+        element: <Dashboard />,
+        children: [
+            {
+                path: "cart",
+                element: <Cart />,
             },
         ],
     },

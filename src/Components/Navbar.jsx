@@ -52,12 +52,12 @@ const Navbar = () => {
                     <div className="flex space-x-4">{links}</div>
                     {/* Cart Icon */}
                     <div className="relative">
-                        <button className="relative">
+                        <Link to="/dashboard/cart" className="relative">
                             <BsCart4 />
                             <span className="absolute px-1 text-xs text-white bg-red-500 rounded-full -top-2 -right-2">
                                 {cart.length}
                             </span>
-                        </button>
+                        </Link>
                     </div>
 
                     {user ? (
