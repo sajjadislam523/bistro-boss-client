@@ -6,8 +6,10 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import authImg from "../assets/others/authentication2.png";
 import useAuth from "../Hooks/useAuth.jsx";
+import useAxiosPublic from "../Hooks/useAxiosPublic.jsx";
 
 const Register = () => {
+    const axiosPublic = useAxiosPublic();
     const {
         register,
         handleSubmit,
@@ -23,13 +25,23 @@ const Register = () => {
             console.log(loggedUser);
             updateUserProfile(data.name, data.photoURL)
                 .then(() => {
-                    Swal.fire({
-                        title: "User created successfully",
-                        icon: "success",
-                        showConfirmButton: false,
-                        timer: 1500,
+                    // create user entry in the database
+                    const userInfo = {
+                        name: data.name,
+                        email: data.email,
+                    };
+                    axiosPublic.post("/users", userInfo).then((res) => {
+                        if (res.data.insertedId) {
+                            console.log("User added to the database");
+                            Swal.fire({
+                                title: "User created successfully",
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1500,
+                            });
+                            navigate("/");
+                        }
                     });
-                    navigate("/");
                 })
                 .catch((err) => {
                     console.log(err.message);

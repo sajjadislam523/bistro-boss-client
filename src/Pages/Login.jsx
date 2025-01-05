@@ -1,7 +1,5 @@
 import { useEffect, useRef } from "react";
 import { Helmet } from "react-helmet-async";
-import { CiFacebook } from "react-icons/ci";
-import { FaGithub, FaGoogle } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
     LoadCanvasTemplate,
@@ -10,6 +8,7 @@ import {
 } from "react-simple-captcha";
 import Swal from "sweetalert2";
 import authImg from "../assets/others/authentication2.png";
+import SocialLogin from "../Components/SocialLogin.jsx";
 import useAuth from "../Hooks/useAuth.jsx";
 
 const Login = () => {
@@ -152,16 +151,8 @@ const Login = () => {
                         <p className="mb-2 text-sm text-center text-gray-500">
                             Or sign in with
                         </p>
-                        <div className="flex justify-center gap-4">
-                            <button className="p-2 text-xl text-gray-600 rounded-full hover:bg-gray-300">
-                                <CiFacebook />
-                            </button>
-                            <button className="p-2 text-xl text-gray-600 rounded-full hover:bg-gray-300">
-                                <FaGoogle />
-                            </button>
-                            <button className="p-2 text-xl text-gray-600 rounded-full hover:bg-gray-300">
-                                <FaGithub />
-                            </button>
+                        <div className="flex items-center justify-center gap-4">
+                            <SocialLogin />
                         </div>
                     </div>
                 </div>
