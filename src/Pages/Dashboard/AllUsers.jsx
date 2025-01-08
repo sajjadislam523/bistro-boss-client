@@ -14,7 +14,19 @@ const AllUsers = () => {
         },
     });
 
-    const handleMakeAdmin = (user) => {};
+    const handleMakeAdmin = (user) => {
+        axiosSecure.patch(`users/admin/${user._id}`).then((res) => {
+            console.log(res.data);
+            if (res.data.modifiedCount > 0) {
+                refetch();
+                Swal.fire({
+                    title: "Admin Updated!",
+                    text: `${user.name} is an admin now!`,
+                    icon: "success",
+                });
+            }
+        });
+    };
 
     const handleDeleteUser = (user) => {
         Swal.fire({
@@ -54,7 +66,7 @@ const AllUsers = () => {
                             <th></th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Roll</th>
+                            <th>Role</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -65,12 +77,18 @@ const AllUsers = () => {
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
                                 <td>
-                                    <button
-                                        onClick={handleMakeAdmin}
-                                        className="text-white bg-yellow-600 btn btn-md"
-                                    >
-                                        <FaUsers />
-                                    </button>
+                                    {user.role === "admin" ? (
+                                        "Admin"
+                                    ) : (
+                                        <button
+                                            onClick={() =>
+                                                handleMakeAdmin(user)
+                                            }
+                                            className="text-white bg-yellow-600 btn btn-md"
+                                        >
+                                            <FaUsers />
+                                        </button>
+                                    )}
                                 </td>
                                 <td>
                                     <button

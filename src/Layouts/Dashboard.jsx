@@ -13,10 +13,11 @@ import { GiWallet } from "react-icons/gi";
 import { IoMdHome } from "react-icons/io";
 import { MdOutlineReviews } from "react-icons/md";
 import { NavLink, Outlet } from "react-router-dom";
+import useAdmin from "../Hooks/useAdmin.jsx";
 
 const Dashboard = () => {
     // TODO: get admin value from the database.
-    const isAdmin = true;
+    const [isAdmin] = useAdmin();
 
     return (
         <div className="flex">
