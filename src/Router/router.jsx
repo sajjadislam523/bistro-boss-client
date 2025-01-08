@@ -4,6 +4,8 @@ import MainLayout from "../Layouts/MainLayout.jsx";
 import AddItems from "../Pages/Dashboard/AddItems.jsx";
 import AllUsers from "../Pages/Dashboard/AllUsers.jsx";
 import Cart from "../Pages/Dashboard/Cart.jsx";
+import ManageItems from "../Pages/Dashboard/ManageItems.jsx";
+import UpdateItem from "../Pages/Dashboard/UpdateItem.jsx";
 import Home from "../Pages/Home.jsx";
 import Login from "../Pages/Login.jsx";
 import Menu from "../Pages/Menu.jsx";
@@ -60,6 +62,24 @@ const router = createBrowserRouter([
                         <AddItems />
                     </AdminRoute>
                 ),
+            },
+            {
+                path: "manageItems",
+                element: (
+                    <AdminRoute>
+                        <ManageItems />
+                    </AdminRoute>
+                ),
+            },
+            {
+                path: `updateItem/:id`,
+                element: (
+                    <AdminRoute>
+                        <UpdateItem />
+                    </AdminRoute>
+                ),
+                loader: ({ params }) =>
+                    fetch(`http://localhost:5000/menu/${params.id}`),
             },
             {
                 path: "users",

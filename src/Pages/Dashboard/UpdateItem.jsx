@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { FaUtensils } from "react-icons/fa6";
+import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 import SectionTitle from "../../Components/SectionTitle.jsx";
 import useAxiosPublic from "../../Hooks/useAxiosPublic.jsx";
@@ -7,13 +7,16 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure.jsx";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
-const AddItems = () => {
+const UpdateItem = () => {
     const { register, handleSubmit } = useForm();
-    const axiosPublic = useAxiosPublic();
+    const { name, category, recipe, price, _id } = useLoaderData();
     const axiosSecure = useAxiosSecure();
+    const axiosPublic = useAxiosPublic();
+
+    console.log(name, category, recipe, price);
 
     const onSubmit = async (data) => {
-        console.log(data);
+        console.log("onSubmit called with data:", data);
         // upload the image to imgbb and get the url
         const imageFile = { image: data.image[0] };
 
@@ -31,14 +34,15 @@ const AddItems = () => {
                 recipe: data.recipe,
                 image: res.data.data.display_url,
             };
-            const menuRes = await axiosSecure.post("/menu", menuItem);
-            console.log(menuRes.data);
-            if (menuRes.data.insertedId) {
+            console.log("Payload sent to server:", menuItem);
+            const menuRes = await axiosSecure.patch(`/menu/${_id}`, menuItem);
+            console.log("Update response:", menuRes.data);
+            if (menuRes.data.modifiedCount > 0) {
                 Swal.fire({
-                    title: "Item added successfully",
+                    title: "Item Updated",
+                    text: `${data.name} is added to the menu`,
                     icon: "success",
-                    showConfirmButton: false,
-                    timer: 1500,
+                    confirmButtonText: "Okay",
                 });
             }
         }
@@ -46,7 +50,7 @@ const AddItems = () => {
 
     return (
         <div>
-            <SectionTitle heading="Add an item" subHeading="Whats new" />
+            <SectionTitle heading="Update Item" subHeading="Refresh Info" />
             <div className="px-12 py-12">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="w-full form-control">
@@ -58,6 +62,7 @@ const AddItems = () => {
                         <input
                             {...register("name", { required: true })}
                             type="text"
+                            defaultValue={name}
                             placeholder="Recipe Name"
                             className="w-full input input-bordered"
                         />
@@ -73,7 +78,7 @@ const AddItems = () => {
                                 {...register("category", {
                                     required: true,
                                 })}
-                                defaultValue="default"
+                                defaultValue={category}
                                 className="w-full select select-bordered"
                             >
                                 <option disabled value="default">
@@ -95,6 +100,7 @@ const AddItems = () => {
                             <input
                                 {...register("price", { required: true })}
                                 type="number"
+                                defaultValue={price}
                                 placeholder="Price"
                                 className="w-full input input-bordered"
                             />
@@ -109,6 +115,7 @@ const AddItems = () => {
                         <textarea
                             className="h-24 textarea textarea-bordered"
                             {...register("recipe")}
+                            defaultValue={recipe}
                             placeholder="Recipe Details"
                         ></textarea>
                     </label>
@@ -119,14 +126,11 @@ const AddItems = () => {
                             className="w-full max-w-xs file-input"
                         />
                     </div>
-                    <button className="btn">
-                        Add Items
-                        <FaUtensils />
-                    </button>
+                    <button className="btn">Update</button>
                 </form>
             </div>
         </div>
     );
 };
 
-export default AddItems;
+export default UpdateItem;
