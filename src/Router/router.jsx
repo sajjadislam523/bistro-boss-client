@@ -10,6 +10,7 @@ import Home from "../Pages/Home.jsx";
 import Login from "../Pages/Login.jsx";
 import Menu from "../Pages/Menu.jsx";
 import Order from "../Pages/Order.jsx";
+import Payment from "../Pages/Payment/Payment.jsx";
 import Register from "../Pages/Register.jsx";
 import AdminRoute from "./AdminRoute.jsx";
 import PrivateRoute from "./PrivateRoute";
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
             {
                 path: "cart",
                 element: <Cart />,
+            },
+            {
+                path: "payment",
+                element: <Payment />,
             },
 
             // Admin routes

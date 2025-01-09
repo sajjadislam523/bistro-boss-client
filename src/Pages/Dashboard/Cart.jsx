@@ -1,4 +1,5 @@
 import { FaTrash } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure.jsx";
 import useCart from "../../Hooks/useCart.jsx";
@@ -39,11 +40,16 @@ const Cart = () => {
                     Total Orders: {cart.length}
                 </h2>
                 <h2 className="text-3xl font-bold">
-                    Total Price: {totalPrice}
+                    Total Price: {totalPrice.toFixed(2)}
                 </h2>
-                <button className="bg-[#D1A054] rounded-md px-4 py-2 text-white">
+                <Link
+                    to={cart.length ? "/dashboard/payment" : "#"}
+                    className={`bg-[#D1A054] rounded-md px-4 py-2 text-white ${
+                        !cart.length ? "opacity-50 cursor-not-allowed" : ""
+                    }`}
+                >
                     Pay
-                </button>
+                </Link>
             </div>
             <div className="bg-white">
                 <div className="overflow-x-auto">
