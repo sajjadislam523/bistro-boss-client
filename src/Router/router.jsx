@@ -11,6 +11,7 @@ import Login from "../Pages/Login.jsx";
 import Menu from "../Pages/Menu.jsx";
 import Order from "../Pages/Order.jsx";
 import Payment from "../Pages/Payment/Payment.jsx";
+import PaymentHistory from "../Pages/Payment/PaymentHistory.jsx";
 import Register from "../Pages/Register.jsx";
 import AdminRoute from "./AdminRoute.jsx";
 import PrivateRoute from "./PrivateRoute";
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
             {
                 path: "payment",
                 element: <Payment />,
+            },
+            {
+                path: "paymentHistory",
+                element: <PaymentHistory />,
             },
 
             // Admin routes
