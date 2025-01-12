@@ -1,11 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import {
-    LoadCanvasTemplate,
-    loadCaptchaEnginge,
-    validateCaptcha,
-} from "react-simple-captcha";
+import { LoadCanvasTemplate, loadCaptchaEnginge } from "react-simple-captcha";
 import Swal from "sweetalert2";
 import authImg from "../assets/others/authentication2.png";
 import SocialLogin from "../Components/SocialLogin.jsx";
@@ -23,14 +19,14 @@ const Login = () => {
         loadCaptchaEnginge(6);
     }, []);
 
-    const handleValidation = () => {
-        const value = captchaRef.current.value;
-        if (!validateCaptcha(value)) {
-            alert("Invalid captcha. Please try again");
-            return false;
-        }
-        return true;
-    };
+    // const handleValidation = () => {
+    //     const value = captchaRef.current.value;
+    //     if (!validateCaptcha(value)) {
+    //         alert("Invalid captcha. Please try again");
+    //         return false;
+    //     }
+    //     return true;
+    // };
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -38,7 +34,7 @@ const Login = () => {
         const email = form.email.value;
         const password = form.password.value;
 
-        if (!handleValidation()) return;
+        // if (!handleValidation()) return;
 
         signIn(email, password).then((res) => {
             const user = res.user;

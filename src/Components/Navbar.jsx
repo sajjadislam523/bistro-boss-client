@@ -1,10 +1,12 @@
 import { BsCart4 } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import useAdmin from "../Hooks/useAdmin.jsx";
 import useAuth from "../Hooks/useAuth.jsx";
 import useCart from "../Hooks/useCart.jsx";
 const Navbar = () => {
     const { user, logOut } = useAuth();
     const [cart] = useCart();
+    const [isAdmin] = useAdmin();
 
     const handleLogout = () => {
         logOut()
@@ -20,15 +22,19 @@ const Navbar = () => {
             <Link to="/contact" className="px-3 hover:text-yellow-400">
                 Contact Us
             </Link>
-            <Link to="/dashboard" className="px-3 hover:text-yellow-400">
-                Dashboard
-            </Link>
             <Link to="/menu" className="px-3 hover:text-yellow-400">
                 Our Menu
             </Link>
             <Link to="/shop/salad" className="px-3 hover:text-yellow-400">
                 Our Shop
             </Link>
+            {user ? (
+                isAdmin ? (
+                    <Link to="/dashboard/adminHome">Dashboard</Link>
+                ) : (
+                    <Link to="/dashboard/userHome">Dashboard</Link>
+                )
+            ) : null}
         </>
     );
 

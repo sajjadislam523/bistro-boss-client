@@ -4,6 +4,8 @@ import MainLayout from "../Layouts/MainLayout.jsx";
 import AddItems from "../Pages/Dashboard/AddItems.jsx";
 import AllUsers from "../Pages/Dashboard/AllUsers.jsx";
 import Cart from "../Pages/Dashboard/Cart.jsx";
+import AdminHome from "../Pages/Dashboard/Home/AdminHome.jsx";
+import UserHome from "../Pages/Dashboard/Home/UserHome.jsx";
 import ManageItems from "../Pages/Dashboard/ManageItems.jsx";
 import UpdateItem from "../Pages/Dashboard/UpdateItem.jsx";
 import Home from "../Pages/Home.jsx";
@@ -52,6 +54,10 @@ const router = createBrowserRouter([
         ),
         children: [
             {
+                path: "userHome",
+                element: <UserHome />,
+            },
+            {
                 path: "cart",
                 element: <Cart />,
             },
@@ -65,6 +71,14 @@ const router = createBrowserRouter([
             },
 
             // Admin routes
+            {
+                path: "adminHome",
+                element: (
+                    <AdminRoute>
+                        <AdminHome />
+                    </AdminRoute>
+                ),
+            },
             {
                 path: "addItems",
                 element: (
@@ -89,7 +103,9 @@ const router = createBrowserRouter([
                     </AdminRoute>
                 ),
                 loader: ({ params }) =>
-                    fetch(`http://localhost:5000/menu/${params.id}`),
+                    fetch(
+                        `https://bistrobossserver-three.vercel.app/menu/${params.id}`
+                    ),
             },
             {
                 path: "users",
